@@ -12,10 +12,9 @@ $products = [
 ];
 // ########################################################
 
-echo $products[0]["name"]." Price: ".$products[0]["price"].".<br>";
-echo $products[1]["name"]." Price: ".$products[1]["price"].".<br>";
-echo $products[2]["name"]." Price: ".$products[2]["price"].".<br>";
-echo $products[3]["name"]." Price: ".$products[3]["price"].".<br>";
-echo $products[4]["name"]." Price: ".$products[4]["price"].".<br>";
+for($i = 0; $i < count($products); $i++) {
+    echo "<p>".$products[$i]["name"].' <input type="button" onclick="alert("Item Added")" value="Add to cart"><br>'
+        ." Price: ".number_format($products[$i]["price"], 2)."<br></p>";
+}
 
 ?>

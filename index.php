@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once "cart.php";
+
 // ######## please do not alter the following code ########
 $products = [
  [ "name" => "Sledgehammer", "price" => 125.75 ],
@@ -13,8 +15,20 @@ $products = [
 // ########################################################
 
 for($i = 0; $i < count($products); $i++) {
-    echo "<p>".$products[$i]["name"].' <input type="button" onclick="alert("Item Added")" value="Add to cart"><br>'
-        ." Price: ".number_format($products[$i]["price"], 2)."<br></p>";
+    echo "<p>".$products[$i]["name"]."<br>Price: ".number_format($products[$i]["price"], 2)
+    .'<form action="index.php" method="post">
+        <input type="hidden" name="hidden_name" value="'.$products[$i]["name"].'" />
+        <input type="hidden" name="hidden_price" value="'.number_format($products[$i]["price"], 2).'" />
+        <input type="submit" name="add" value="Add to cart" />
+    </form><br></p>';
+}
+
+
+$cart1 = new cart();
+
+if(isset($_POST["add"])) {
+    $cart1->addToCart($_POST["hidden_name"],$_POST["hidden_price"]);
+    echo "Item ".$_POST["hidden_name"]." added to cart.";
 }
 
 ?>

@@ -1,40 +1,43 @@
 <?php
 
-class Cart {
+class cart {
 
     private $overall;
-    private $products_in_cart;
+    private array $products_in_cart;
 
     public function __construct() {
-        $overall = 0;
-        $products_in_cart = [];
+        $this->overall = 0.0;
+        $this->products_in_cart = [];
     }
 
-    public function getOverall() {
-        return $overall;
+    public function getOverall(): float {
+        print($this->overall);
+        return $this->overall;
     }
 
-    public function getCart() {
-        return $products_in_cart;
+    public function getCart(): array {
+        return $this->products_in_cart;
     }
 
     public function addToCart($product, $price) {
-        for($i = 0; i < count($products_in_cart); $i++) {
+        for($i = 0; $i < count($this->products_in_cart); $i++) {
             // Checks if product already exists in cart or not, if not then add to cart
-            if(!strcmp($products_in_cart[$i]["name"])) {
-                $products_in_cart[$i]["quantity"]++;
-                $products_in_cart[$i]["total"] = number_format($products_in_cart[$i]["price"]), 2) * $products_in_cart[$i]["quantity"];
+            if(!strcmp($this->products_in_cart[$i]["name"], $product)) {
+                $this->products_in_cart[$i]["quantity"]++;
+                $this->products_in_cart[$i]["total"] = number_format(products_in_cart[$i]["price"], 2) * products_in_cart[$i]["quantity"];
+                break;
             } else {
-                $products_in_cart[$i] = ["name" => $product, "price" => $price, "quantity" => 1, "total" = $price];
+                $this->products_in_cart[$i] = array("name" => $product, "price" => $price, "quantity" => 1, "total" => $price);
+                break;
             }
         }
     }
 
     public function removeFromCart($product) {
-        for($i = 0; i < count($products_in_cart); $i++) {
-            if($products_in_cart[$i]["quantity"] > 1) {
-                $products_in_cart[$i]["quantity"]--;
-                $products_in_cart[$i]["total"] = number_format($products_in_cart[$i]["price"]), 2) * $products_in_cart[$i]["quantity"];
+        for($i = 0; $i < count($this->products_in_cart); $i++) {
+            if($this->products_in_cart[$i]["quantity"] > 1) {
+                $this->products_in_cart[$i]["quantity"]--;
+                $this->products_in_cart[$i]["total"] = number_format($products_in_cart[$i]["price"], 2) * $products_in_cart[$i]["quantity"];
             } else {
                 array_splice($products_in_cart, $i, 1);
             }
@@ -42,5 +45,3 @@ class Cart {
     }
 
 }
-
-?>

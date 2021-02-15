@@ -49,11 +49,14 @@ class cart {
 
     public function removeFromCart($product) {
         for($i = 0; $i < count($this->products_in_cart); $i++) {
-            if($this->products_in_cart[$i]["quantity"] > 1) {
-                $this->products_in_cart[$i]["quantity"]--;
-                $this->products_in_cart[$i]["total"] = number_format($products_in_cart[$i]["price"], 2) * $products_in_cart[$i]["quantity"];
-            } else {
-                array_splice($products_in_cart, $i, 1);
+            // Compare product names to decrement/remove the right product
+            if(!strcmp($this->products_in_cart[$i]["name"], $product)) {
+                if($this->products_in_cart[$i]["quantity"] > 1) {
+                    $this->products_in_cart[$i]["quantity"]--;
+                    $this->products_in_cart[$i]["total"] = number_format($this->products_in_cart[$i]["price"], 2) * $this->products_in_cart[$i]["quantity"];
+                } else {
+                    array_splice($this->products_in_cart, $i, 1);
+                }
             }
         }
     }

@@ -1,9 +1,16 @@
 <?php
 
-session_start();
-
 require_once "cart.php";
 
+session_start();
+
+// If session cart isn't declared, declare it
+if(!isset($_SESSION["cart"])) {
+    $_SESSION["cart"] = new cart();
+    echo "Session cart initialized <br>";
+}
+
+// Products list
 // ######## please do not alter the following code ########
 $products = [
  [ "name" => "Sledgehammer", "price" => 125.75 ],
@@ -23,11 +30,15 @@ for($i = 0; $i < count($products); $i++) {
     </form><br></p>';
 }
 
-
-$cart1 = new cart();
+// Only print cart if its not empty
+if(!empty($_SESSION["cart"])) {
+    $cart_list = $_SESSION["cart"]->getCart();
+    var_dump($cart_list);
+}
 
 if(isset($_POST["add"])) {
-    $cart1->addToCart($_POST["hidden_name"],$_POST["hidden_price"]);
+    $_SESSION["cart"]->addToCart($_POST["hidden_name"], $_POST["hidden_price"]);
+
     echo "Item ".$_POST["hidden_name"]." added to cart.";
 }
 

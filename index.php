@@ -36,7 +36,7 @@ if(isset($_POST["add"])) {
 } elseif(isset($_POST["remove"])) {
     $_SESSION["cart"]->removeFromCart($_POST["hidden_name"]);
     echo $_POST["hidden_name"]." removed from cart.";
-} elseif(isset($_POST)) {
+} elseif(isset($_POST["checkout"])) {
     // Unset the cart object and create new cart object
     unset($_SESSION["cart"]);
     $_SESSION["cart"] = new cart();

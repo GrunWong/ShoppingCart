@@ -55,7 +55,7 @@ if(!empty($_SESSION["cart"])) {
                 <td>'.$cart_list[$i]["name"].'</td>
                 <td>'.$cart_list[$i]["price"].'</td>
                 <td>'.$cart_list[$i]["quantity"].'</td>
-                <td>'.$cart_list[$i]["total"].'</td>
+                <td>'.number_format($cart_list[$i]["total"], 2).'</td>
                 <td>
                     <form action="index.php" method="post">
                         <input type="hidden" name="hidden_name" value="'.$cart_list[$i]["name"].'" />
@@ -66,7 +66,7 @@ if(!empty($_SESSION["cart"])) {
         }
         echo '<tr>
             <td colspan="3" align="right">Overall Total</td>
-            <td align="right">'.$_SESSION["cart"]->getOverall().'</td>
+            <td align="right">'.number_format($_SESSION["cart"]->getOverall(), 2).'</td>
             <td>
                 <form action="index.php" method="post">
                     <input type="submit" name="checkout" value="Checkout" />

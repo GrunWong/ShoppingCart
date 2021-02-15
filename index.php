@@ -22,7 +22,7 @@ $products = [
 
 for($i = 0; $i < count($products); $i++) {
     echo "<p>".$products[$i]["name"]."<br>Price: ".number_format($products[$i]["price"], 2)
-    .'<form action="index.php" method="post">
+    .'<form action="index.php?action=add" method="post">
         <input type="hidden" name="hidden_name" value="'.$products[$i]["name"].'" />
         <input type="hidden" name="hidden_price" value="'.number_format($products[$i]["price"], 2).'" />
         <input type="submit" name="add" value="Add to cart" />
@@ -62,7 +62,7 @@ if(!empty($_SESSION["cart"])) {
                 <td>'.$cart_list[$i]["quantity"].'</td>
                 <td>'.number_format($cart_list[$i]["total"], 2).'</td>
                 <td>
-                    <form action="index.php" method="post">
+                    <form action="index.php?action=remove" method="post">
                         <input type="hidden" name="hidden_name" value="'.$cart_list[$i]["name"].'" />
                         <input type="submit" name="remove" value="Remove" />
                     </form>
@@ -73,7 +73,7 @@ if(!empty($_SESSION["cart"])) {
             <td colspan="3" align="right">Overall Total</td>
             <td align="right">'.number_format($_SESSION["cart"]->getOverall(), 2).'</td>
             <td>
-                <form action="index.php" method="post">
+                <form action="index.php?action=checkout" method="post">
                     <input type="submit" name="checkout" value="Checkout" />
                 </form>
             </td>

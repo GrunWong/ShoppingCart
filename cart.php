@@ -24,19 +24,17 @@ class cart {
     }
 
     public function addToCart($product, $price) {
+        // First product in cart is always appended
         if(count($this->products_in_cart) == 0) {
-            echo "First entry <br>";
             $this->products_in_cart[] = array("name" => $product, "price" => $price, "quantity" => 1, "total" => $price);
-            var_dump($this->products_in_cart);
         } else {
             for($i = 0; $i < count($this->products_in_cart); $i++) {
-                echo "Entered for loop <br>";
                 // Checks if product already exists in cart or not, if not then add to cart
                 if(!strcmp($this->products_in_cart[$i]["name"], $product)) {
                     $this->products_in_cart[$i]["quantity"]++;
                     $this->products_in_cart[$i]["total"] = number_format($this->products_in_cart[$i]["price"], 2) * $this->products_in_cart[$i]["quantity"];
                     break;
-                } else {
+                } elseif($i == (count($this->products_in_cart) - 1)) {
                     $this->products_in_cart[] = array("name" => $product, "price" => $price, "quantity" => 1, "total" => $price);
                     break;
                 }

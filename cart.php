@@ -11,7 +11,6 @@ class cart {
     }
 
     public function getOverall(): float {
-        print($this->overall);
         return $this->overall;
     }
 

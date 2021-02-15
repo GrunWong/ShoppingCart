@@ -30,16 +30,50 @@ for($i = 0; $i < count($products); $i++) {
     </form><br></p>';
 }
 
+if(isset($_POST["add"])) {
+    $_SESSION["cart"]->addToCart($_POST["hidden_name"], $_POST["hidden_price"]);
+    echo $_POST["hidden_name"]." added to cart.";
+} elseif(isset($_POST["remove"])) {
+    $_SESSION["cart"]->removeFromCart($_POST["hidden_name"]);
+}
+
 // Only print cart if its not empty
 if(!empty($_SESSION["cart"])) {
     $cart_list = $_SESSION["cart"]->getCart();
-    var_dump($cart_list);
-}
-
-if(isset($_POST["add"])) {
-    $_SESSION["cart"]->addToCart($_POST["hidden_name"], $_POST["hidden_price"]);
-
-    echo "Item ".$_POST["hidden_name"]." added to cart.";
+    
+    // Table to visualise shopping cart
+    echo '<table border="1" class="table">
+        <tr>
+            <th width="50%">Product Name</th>
+            <th width="10%">Price</th>
+            <th width="20%">Quantity</th>
+            <th width="15%">Total</th>
+            <th width="5%">Action</th>
+        </tr>';
+        for($i = 0; $i < count($cart_list); $i++) {
+            echo '<tr>
+                <td>'.$cart_list[$i]["name"].'</td>
+                <td>'.$cart_list[$i]["price"].'</td>
+                <td>'.$cart_list[$i]["quantity"].'</td>
+                <td>'.$cart_list[$i]["total"].'</td>
+                <td>
+                    <form action="index.php" method="post">
+                        <input type="hidden" name="hidden_name" value="'.$cart_list[$i]["name"].'" />
+                        <input type="submit" name="remove" value="Remove" />
+                    </form>
+                </td>
+            </tr>';
+        }
+        echo '<tr>
+            <td colspan="3" align="right">Overall Total</td>
+            <td align="right">'.$_SESSION["cart"]->getOverall().'</td>
+            <td>
+                <form action="index.php" method="post">
+                    <input type="submit" name="checkout" value="Checkout" />
+                </form>
+            </td>
+        </tr>
+    </table>';
 }
 
 ?>

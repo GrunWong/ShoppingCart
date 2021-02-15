@@ -7,7 +7,6 @@ session_start();
 // If session cart isn't declared, declare it
 if(!isset($_SESSION["cart"])) {
     $_SESSION["cart"] = new cart();
-    echo "Session cart initialized <br>";
 }
 
 // Products list
@@ -30,11 +29,17 @@ for($i = 0; $i < count($products); $i++) {
     </form><br></p>';
 }
 
+// Button press handlers using POST method
 if(isset($_POST["add"])) {
     $_SESSION["cart"]->addToCart($_POST["hidden_name"], $_POST["hidden_price"]);
     echo $_POST["hidden_name"]." added to cart.";
 } elseif(isset($_POST["remove"])) {
     $_SESSION["cart"]->removeFromCart($_POST["hidden_name"]);
+    echo $_POST["hidden_name"]." removed from cart.";
+} elseif(isset($_POST)) {
+    // Unset the cart object and create new cart object
+    unset($_SESSION["cart"]);
+    $_SESSION["cart"] = new cart();
 }
 
 // Only print cart if its not empty

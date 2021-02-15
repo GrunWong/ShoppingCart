@@ -11,6 +11,11 @@ class cart {
     }
 
     public function getOverall(): float {
+        // Reset variable memory before display with each page refresh
+        $this->overall = 0.0;
+        for($i = 0; $i < count($this->products_in_cart); $i++) {
+            $this->overall += $this->products_in_cart[$i]["total"];
+        }
         return $this->overall;
     }
 
